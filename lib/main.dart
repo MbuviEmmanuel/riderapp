@@ -20,7 +20,12 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RegistrationScreen(),
+      initialRoute: LoginScreen.idScreen,
+      routes: {
+        RegistrationScreen.idScreen: (Context) => RegistrationScreen(),
+        LoginScreen.idScreen: (Context) => LoginScreen(),
+        MainScreen.idScreen: (Context) => MainScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

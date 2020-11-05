@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:riderapp/AllScreens/registrationScreen.dart';
 
 
 class LoginScreen extends StatelessWidget {
+
+  static const String idScreen = "login";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class LoginScreen extends StatelessWidget {
 
               SizedBox(height: 1.0,),
               Text(
-                "Login as a Rider",
+                "Login as Esimusoft Rider",
                 style: TextStyle(fontSize: 24, fontFamily: "Brand Bold"),
                 textAlign: TextAlign.center,
               ),
@@ -95,7 +98,7 @@ class LoginScreen extends StatelessWidget {
 
               FlatButton(
                 onPressed: (){
-                  print("Clicked");
+                  Navigator.pushNamedAndRemoveUntil(context, RegistrationScreen.idScreen, (route) => false);
                 },
                 child: Text(
                   "Do not have an Account? Register Here",
