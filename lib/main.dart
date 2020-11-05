@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riderapp/AllScreens/mainScreen.dart';
+import 'package:riderapp/AllScreens/registrationScreen.dart';
 
 import 'AllScreens/loginScreen.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      home: RegistrationScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
