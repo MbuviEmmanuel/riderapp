@@ -12,8 +12,9 @@ class RegistrationScreen extends StatelessWidget {
 
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController phoneTextEditingController = TextEditingController();
+
 
 
   @override
