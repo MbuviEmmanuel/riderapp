@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:riderapp/AllScreens/loginScreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:riderapp/AllScreens/mainScreen.dart';
+import 'package:riderapp/AllWidgets/progressDialog.dart';
 import 'package:riderapp/main.dart';
 
 
@@ -55,15 +56,15 @@ class RegistrationScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Name:",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.0,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
                     SizedBox(height: 1.0,),
@@ -73,15 +74,15 @@ class RegistrationScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Phone",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.0,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
 
@@ -92,15 +93,15 @@ class RegistrationScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.0,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
 
@@ -111,15 +112,15 @@ class RegistrationScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.04,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
                     SizedBox(height: 10.0,),
@@ -182,9 +183,20 @@ class RegistrationScreen extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   void registerNewUser(BuildContext context) async{
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return ProgressDialog(message: "Registering, please wait...",);
+        }
+    );
+
     final User firebaseUser = (await _firebaseAuth.createUserWithEmailAndPassword
       (email: emailTextEditingController.text,
-        password: passwordTextEditingController.text).catchError((errMsg){
+        password: passwordTextEditingController.text)
+        .catchError((errMsg){
+          Navigator.pop(context);
           displayToastMessage("Error" + errMsg.toString(), context);
     })).user;
 
@@ -202,6 +214,7 @@ class RegistrationScreen extends StatelessWidget {
     }
     else{
       // error occurred msg display
+      Navigator.pop(context);
       displayToastMessage("New user account has not been created", context);
 
     }

@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:riderapp/AllScreens/mainScreen.dart';
 import 'package:riderapp/AllScreens/registrationScreen.dart';
+import 'package:riderapp/AllWidgets/progressDialog.dart';
 import 'package:riderapp/main.dart';
 
 
@@ -48,15 +49,15 @@ class LoginScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.0,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
 
@@ -67,15 +68,15 @@ class LoginScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: "Password",
                         labelStyle: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                         ),
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14.04,
+                          fontSize: 16.04,
                         ),
                       ),
 
-                      style: TextStyle(fontSize: 14.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
 
                     SizedBox(height: 10.0,),
@@ -132,13 +133,24 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   void loginAndAunthenticateUser(BuildContext context) async{
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context){
+        return ProgressDialog(message: "Authenticating, please wait...",);
+      }
+    );
+    
     final User firebaseUser = (await _firebaseAuth.signInWithEmailAndPassword
       (email: emailTextEditingController.text,
-        password: passwordTextEditingController.text).catchError((errMsg){
-      displayToastMessage("Error" + errMsg.toString(), context);
+        password: passwordTextEditingController.text)
+        .catchError((errMsg){
+          Navigator.pop(context);
+          displayToastMessage("Error" + errMsg.toString(), context);
     })).user;
 
     if(firebaseUser != null) { //user created
@@ -151,6 +163,7 @@ class LoginScreen extends StatelessWidget {
           displayToastMessage("Congratulations, You have logged in successfully", context);
         }
         else {
+          Navigator.pop(context);
           _firebaseAuth.signOut();
           displayToastMessage("No record exists for this user. Please create an account to be able to login.", context);
         }
@@ -159,6 +172,7 @@ class LoginScreen extends StatelessWidget {
     }
     else{
       // error occurred msg display
+      Navigator.pop(context);
       displayToastMessage("Error occurred cannot be signed in.", context);
 
     }
