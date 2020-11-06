@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
       title: 'Taxi Rider App',
       theme: ThemeData(
         fontFamily: "Brand Bold",
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: LoginScreen.idScreen,
+      initialRoute: MainScreen.idScreen,
       routes: {
         RegistrationScreen.idScreen: (Context) => RegistrationScreen(),
         LoginScreen.idScreen: (Context) => LoginScreen(),
